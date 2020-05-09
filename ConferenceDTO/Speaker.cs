@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace BackEnd.Models
+namespace ConferenceDTO
 {
     public class Speaker
     {

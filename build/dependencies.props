@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup Label="Microsoft">
       <MicrosoftAspNetCorePackageVersion>[3.*, )</MicrosoftAspNetCorePackageVersion>
+      <ComponentModelPackageVersion>[4.*, )</ComponentModelPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup Label="Swashbuckle">
