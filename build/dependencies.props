@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup Label="Microsoft">
       <MicrosoftAspNetCorePackageVersion>[3.*, )</MicrosoftAspNetCorePackageVersion>
+      <MicrosoftAspNetPackageVersion>[5.*, )</MicrosoftAspNetPackageVersion>
       <ComponentModelPackageVersion>[4.*, )</ComponentModelPackageVersion>
   </PropertyGroup>
 
