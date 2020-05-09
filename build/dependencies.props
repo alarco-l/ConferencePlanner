@@ -2,4 +2,8 @@
   <PropertyGroup Label="Microsoft">
       <MicrosoftAspNetCorePackageVersion>[3.*, )</MicrosoftAspNetCorePackageVersion>
   </PropertyGroup>
+
+  <PropertyGroup Label="Swashbuckle">
+      <SwashbucklePackageVersion>[5.*, )</SwashbucklePackageVersion>
+  </PropertyGroup>
 </Project>
