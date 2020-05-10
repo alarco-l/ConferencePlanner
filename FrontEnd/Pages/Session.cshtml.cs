@@ -18,6 +18,8 @@ namespace FrontEnd.Pages
 
         public int? DayOffset { get; set; }
 
+        public bool IsInPersonalAgenda { get; set; }
+
         public SessionModel(ILogger<SessionModel> logger, IApiClient apiClient)
         {
             _logger = logger;
@@ -26,6 +28,13 @@ namespace FrontEnd.Pages
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                var sessions = await _apiClient.GetSessionsByAttendeeAsync(User.Identity.Name);
+
+                IsInPersonalAgenda = sessions.Any(s => s.Id == id);
+            }
+
             Session = await _apiClient.GetSessionAsync(id);
 
             if (Session == null)
@@ -40,6 +49,20 @@ namespace FrontEnd.Pages
             DayOffset = Session.StartTime?.Subtract(startDate ?? DateTimeOffset.MinValue).Days;
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int sessionId)
+        {
+            await _apiClient.AddSessionToAttendeeAsync(User.Identity.Name, sessionId);
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(int sessionId)
+        {
+            await _apiClient.RemoveSessionFromAttendeeAsync(User.Identity.Name, sessionId);
+
+            return RedirectToPage();
         }
     }
 }

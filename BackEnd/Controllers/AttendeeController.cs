@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using ConferenceDTO;
+using System.Collections.Generic;
 
 namespace BackEnd.Controllers
 {
@@ -131,6 +132,19 @@ namespace BackEnd.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("{username}/sessions")]
+        public async Task<ActionResult<List<SessionResponse>>> GetSessions(string username)
+        {
+            var sessions = await _context.Sessions.AsNoTracking()
+                                                .Include(s => s.Track)
+                                                .Include(s => s.SessionSpeakers)
+                                                    .ThenInclude(ss => ss.Speaker)
+                                                .Where(s => s.SessionAttendees.Any(sa => sa.Attendee.UserName == username))
+                                                .Select(m => m.MapSessionResponse())
+                                                .ToListAsync();
+            return sessions;
         }
     }
 }
