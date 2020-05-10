@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FrontEnd.Data;
+using FrontEnd.Infrastructure.Microsoft.Extensions.DependencyInjection;
 using FrontEnd.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +31,21 @@ namespace FrontEnd
                 client.BaseAddress = new Uri(Configuration.GetValue<string>("ServiceUrl"));
             });
 
-            services.AddRazorPages();
+            services.AddSingleton<IAdminService, AdminService>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy =>
+                {
+                    policy.RequireAuthenticatedUser()
+                          .RequireIsAdminClaim();
+                });
+            });
+
+            services.AddRazorPages(options =>
+            {
+                options.Conventions.AuthorizeAreaFolder("Admin", "/Admin");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +67,7 @@ namespace FrontEnd
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
