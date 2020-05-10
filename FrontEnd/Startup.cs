@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FrontEnd.Data;
+using FrontEnd.HealthChecks;
 using FrontEnd.Infrastructure.Microsoft.Extensions.DependencyInjection;
 using FrontEnd.Middleware;
 using FrontEnd.Services;
@@ -43,6 +44,10 @@ namespace FrontEnd
                 });
             });
 
+            services.AddHealthChecks()
+                    .AddCheck<BackendHealthCheck>("backend")
+                    .AddDbContextCheck<IdentityDbContext>();
+
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeAreaFolder("Admin", "/Admin");
@@ -75,6 +80,7 @@ namespace FrontEnd
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapRazorPages();
             });
         }

@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="$(MicrosoftAspNetCorePackageVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(MicrosoftAspNetCorePackageVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqLite" Version="$(MicrosoftAspNetCorePackageVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(MicrosoftAspNetCorePackageVersion)" />
   </ItemGroup>
 
   <ItemGroup>

@@ -41,6 +41,9 @@ namespace BackEnd
                         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                     });
 
+            services.AddHealthChecks()
+                    .AddDbContextCheck<ApplicationDbContext>();
+
             services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "Conference Planner API", Version = "v1" }));
         }
 
@@ -63,6 +66,7 @@ namespace BackEnd
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }

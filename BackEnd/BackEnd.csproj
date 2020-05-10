@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(MicrosoftAspNetCorePackageVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqLite" Version="$(MicrosoftAspNetCorePackageVersion)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="$(MicrosoftAspNetCorePackageVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="$(MicrosoftAspNetCorePackageVersion)" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="$(MicrosoftAspNetCorePackageVersion)" />
 
     <PackageReference Include="Swashbuckle.AspNetCore" Version="$(SwashbucklePackageVersion)" />
